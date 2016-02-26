@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <version>1.0.0</version>
+    <authors>Dominick Baier, Brock Allen</authors>
+    <owners>Dominick Baier, Brock Allen</owners>
+    <copyright>Dominick Baier, Brock Allen 2016</copyright>
+
+    <projectUrl>http://github.com/IdentityModel/IdentityModel.HttpSigning</projectUrl>
+    <iconUrl>https://identityserver.github.io/Documentation/assets/images/icons/IDmodel_icon128.png</iconUrl>
+
+    <id>IdentityModel.Owin.PopAuthentication</id>
+    <title>IdentityModel.Owin.PopAuthentication</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+    <description>A Method for Signing HTTP Requests for OAuth</description>
+    <summary>A Method for Signing HTTP Requests for OAuth (https://tools.ietf.org/html/draft-ietf-oauth-signed-http-request-02)</summary>
+
+    <language>en-US</language>
+    <tags>OAuth2 PoP Signing HTTP JWT Tokens API</tags>
+
+    <dependencies>
+      <dependency id="IdentityModel" version="1.8.0"/>
+      <dependency id="jose-jwt" version="1.9.1" />
+    </dependencies>
+  </metadata>
+</package>
