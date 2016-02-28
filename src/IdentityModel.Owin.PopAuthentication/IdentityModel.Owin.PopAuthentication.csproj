@@ -65,7 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpSignatureValidationOptions.cs" />
     <Compile Include="DefaultPopTokenProvider.cs" />
+    <Compile Include="HttpSignatureValidationMiddleware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -76,7 +76,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultPopTokenProviderTests.cs" />
+    <Compile Include="HttpSignatureValidationMiddlewareTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StubMiddleware.cs" />
+    <Compile Include="StubSignatureValidator.cs" />
+    <Compile Include="StubTokenProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.licenseheader" />
