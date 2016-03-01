@@ -16,8 +16,7 @@ namespace IdentityModel.Owin.PopAuthentication
 {
     public class OwinValidationOptions
     {
-        public TimeSpan OldMessageRejectionAge { get; set; } = TimeSpan.FromMinutes(5);
-
+        public TimeSpan TimespanValidityWindow { get; set; } = TimeSpan.FromMinutes(5);
         public bool ValidateMethod { get; set; }
         public bool ValidateHost { get; set; }
         public bool ValidatePath { get; set; }

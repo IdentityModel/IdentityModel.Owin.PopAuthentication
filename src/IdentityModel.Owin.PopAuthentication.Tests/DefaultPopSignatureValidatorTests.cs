@@ -112,7 +112,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests
         [Fact]
         public async Task too_old_timestamp_should_fail_validation()
         {
-            _stubOptions.OldMessageRejectionAge = TimeSpan.FromSeconds(300);
+            _stubOptions.TimespanValidityWindow = TimeSpan.FromSeconds(300);
 
             var claims = new Claim[]
             {
@@ -136,7 +136,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests
         [Fact]
         public async Task too_new_timestamp_should_fail_validation()
         {
-            _stubOptions.OldMessageRejectionAge = TimeSpan.FromSeconds(300);
+            _stubOptions.TimespanValidityWindow = TimeSpan.FromSeconds(300);
 
             var claims = new Claim[]
             {

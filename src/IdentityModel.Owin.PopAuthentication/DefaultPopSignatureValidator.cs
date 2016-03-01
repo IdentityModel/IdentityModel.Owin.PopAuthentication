@@ -47,8 +47,8 @@ namespace IdentityModel.Owin.PopAuthentication
             }
 
             var time = popValues.TimeStamp;
-            var allowance = options.OldMessageRejectionAge.TotalSeconds;
             var now = DateTimeOffset.UtcNow.ToEpochTime();
+            var allowance = options.TimespanValidityWindow.TotalSeconds;
             var low = now - allowance;
             var high = now + allowance;
             if (time < low || high < time)
