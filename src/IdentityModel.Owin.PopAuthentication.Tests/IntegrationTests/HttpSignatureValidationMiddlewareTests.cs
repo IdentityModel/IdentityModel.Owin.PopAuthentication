@@ -21,37 +21,37 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
     public class HttpSignatureValidationMiddlewareTests
     {
         static readonly byte[] _symmetricKey = new byte[] { 164, 60, 194, 0, 161, 189, 41, 38, 130, 89, 141, 164, 45, 170, 159, 209, 69, 137, 243, 216, 191, 131, 47, 250, 32, 107, 231, 117, 37, 158, 225, 234 };
-        static string _cnfJson;
         static ClaimsIdentity _cnfIdentity;
 
         HttpSignatureValidationOptions _signatureValidationOptions = new HttpSignatureValidationOptions();
         RequestSigningOptions _requestSigningOptions = new RequestSigningOptions();
         StubAuthenticationManager _stubAuthenticationManager = new StubAuthenticationManager();
 
-        PopPipeline _pipeline;
+        HttpSignatureValidationPipeline _pipeline;
         HttpClient _client;
         Signature _signature = new HS256Signature(_symmetricKey);
 
         static HttpSignatureValidationMiddlewareTests()
         {
-            var key = Base64Url.Encode(_symmetricKey);
             var jwk = new Jwk
             {
                 kty = "oct",
                 alg = "HS256",
-                k = key
+                k = Base64Url.Encode(_symmetricKey)
             };
-            _cnfJson = JsonConvert.SerializeObject(jwk);
+            var cnf = new Cnf(jwk);
+            var cnfJson = cnf.ToJson();
+
             var claims = new Claim[]
             {
-                new Claim("cnf", _cnfJson)
+                new Claim("cnf", cnfJson)
             };
             _cnfIdentity = new ClaimsIdentity(claims, "PoP");
         }
 
         public HttpSignatureValidationMiddlewareTests()
         {
-            _pipeline = new PopPipeline(_signatureValidationOptions);
+            _pipeline = new HttpSignatureValidationPipeline(_signatureValidationOptions);
             _pipeline.OnPreProcessRequest += env =>
             {
                 _stubAuthenticationManager.Attach(env);

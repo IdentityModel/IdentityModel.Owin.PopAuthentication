@@ -35,7 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="IdentityModel.HttpSigning, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IdentityModel.HttpSigning.1.0.0-build00021\lib\net45\IdentityModel.HttpSigning.dll</HintPath>
+      <HintPath>..\..\packages\IdentityModel.HttpSigning.1.0.0-build00022\lib\net45\IdentityModel.HttpSigning.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="jose-jwt, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">

@@ -60,7 +60,17 @@ namespace IdentityModel.Owin.PopAuthentication
         {
             if (!String.IsNullOrWhiteSpace(token))
             {
-                var json = Jose.JWT.Payload(token);
+                string json = null;
+
+                try
+                {
+                    json = Jose.JWT.Payload(token);
+                    if (json == null) return null;
+                }
+                catch
+                {
+                    return null;
+                }
 
                 var values = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
                 if (values.ContainsKey(HttpSigningConstants.SignedObjectParameterNames.AccessToken))

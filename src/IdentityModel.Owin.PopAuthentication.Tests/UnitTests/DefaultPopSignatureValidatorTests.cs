@@ -20,18 +20,24 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
     {
         static readonly byte[] _symmetricKey = new byte[] { 164, 60, 194, 0, 161, 189, 41, 38, 130, 89, 141, 164, 45, 170, 159, 209, 69, 137, 243, 216, 191, 131, 47, 250, 32, 107, 231, 117, 37, 158, 225, 234 };
         static Signature _signature = new HS256Signature(_symmetricKey);
-        static string _cnfJson;
+        static ClaimsIdentity _cnfIdentity;
 
         static DefaultPopSignatureValidatorTests()
         {
-            var key = Base64Url.Encode(_symmetricKey);
             var jwk = new Jwk
             {
                 kty = "oct",
                 alg = "HS256",
-                k = key
+                k = Base64Url.Encode(_symmetricKey)
             };
-            _cnfJson = JsonConvert.SerializeObject(jwk);
+            var cnf = new Cnf(jwk);
+            var cnfJson = cnf.ToJson();
+
+            var claims = new Claim[]
+            {
+                new Claim("cnf", cnfJson)
+            };
+            _cnfIdentity = new ClaimsIdentity(claims, "PoP");
         }
 
         OwinContext _context;
@@ -76,11 +82,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         [Fact]
         public async Task user_without_cnf_claim_should_fail_validation()
         {
-            var claims = new Claim[]
-            {
-                new Claim("not_cnf", "foo")
-            };
-            _stubAuthenticationManager.Identity = new ClaimsIdentity(claims, "PoP");
+            _stubAuthenticationManager.Identity = _cnfIdentity;
 
             var result = await DefaultPopSignatureValidator.ValidateTokenAsync(_context.Environment, _stubOptions, "token");
 
@@ -90,11 +92,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         [Fact]
         public async Task negative_timestamp_should_fail_validation()
         {
-            var claims = new Claim[]
-            {
-                new Claim("cnf", _cnfJson)
-            };
-            _stubAuthenticationManager.Identity = new ClaimsIdentity(claims, "PoP");
+            _stubAuthenticationManager.Identity = _cnfIdentity;
 
             var token = new Dictionary<string, object>
             {
@@ -114,11 +112,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         {
             _stubOptions.TimespanValidityWindow = TimeSpan.FromSeconds(300);
 
-            var claims = new Claim[]
-            {
-                new Claim("cnf", _cnfJson)
-            };
-            _stubAuthenticationManager.Identity = new ClaimsIdentity(claims, "PoP");
+            _stubAuthenticationManager.Identity = _cnfIdentity;
 
             var token = new Dictionary<string, object>
             {
@@ -138,11 +132,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         {
             _stubOptions.TimespanValidityWindow = TimeSpan.FromSeconds(300);
 
-            var claims = new Claim[]
-            {
-                new Claim("cnf", _cnfJson)
-            };
-            _stubAuthenticationManager.Identity = new ClaimsIdentity(claims, "PoP");
+            _stubAuthenticationManager.Identity = _cnfIdentity;
 
             var token = new Dictionary<string, object>
             {
@@ -160,11 +150,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         [Fact]
         public async Task valid_claim_should_succeed_validation()
         {
-            var claims = new Claim[]
-            {
-                new Claim("cnf", _cnfJson)
-            };
-            _stubAuthenticationManager.Identity = new ClaimsIdentity(claims, "PoP");
+            _stubAuthenticationManager.Identity = _cnfIdentity;
 
             var token = new Dictionary<string, object>
             {

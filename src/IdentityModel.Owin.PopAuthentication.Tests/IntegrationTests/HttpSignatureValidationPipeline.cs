@@ -13,17 +13,17 @@ using System.Threading.Tasks;
 
 namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
 {
-    public class PopPipeline : OwinPipeline
+    public class HttpSignatureValidationPipeline : OwinPipeline
     {
-        public PopPipeline(HttpSignatureValidationOptions options = null)
+        public HttpSignatureValidationPipeline(HttpSignatureValidationOptions options = null)
         {
             Options = options;
-            OnStartup += PopPipeline_OnStartup;
+            OnStartup += HttpSignatureValidationPipeline_OnStartup;
         }
 
         public HttpSignatureValidationOptions Options { get; set; }
 
-        private void PopPipeline_OnStartup(IAppBuilder app)
+        private void HttpSignatureValidationPipeline_OnStartup(IAppBuilder app)
         {
             app.UseHttpSignatureValidation(Options);
             app.Run(ctx =>
