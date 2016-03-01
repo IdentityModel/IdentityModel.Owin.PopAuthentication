@@ -14,7 +14,7 @@ using System.Security.Claims;
 using IdentityModel.HttpSigning;
 using Newtonsoft.Json;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
     public class DefaultPopSignatureValidatorTests
     {

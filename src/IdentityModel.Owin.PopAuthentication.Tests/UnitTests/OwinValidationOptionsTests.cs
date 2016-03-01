@@ -13,7 +13,7 @@ using Microsoft.Owin;
 using System.IO;
 using IdentityModel.HttpSigning;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
     public class OwinValidationOptionsTests
     {

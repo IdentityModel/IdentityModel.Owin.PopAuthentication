@@ -41,6 +41,11 @@ namespace IdentityModel.Owin.PopAuthentication
             var signature = key.ToSignature();
             var popValues = signature.Verify(token);
 
+            if (popValues == null)
+            {
+                return false;
+            }
+
             if (popValues.TimeStamp == null || popValues.TimeStamp.Value <= 0)
             {
                 return false;

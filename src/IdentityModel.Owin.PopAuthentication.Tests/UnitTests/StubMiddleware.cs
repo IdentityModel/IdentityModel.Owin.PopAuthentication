@@ -8,17 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
-    public class StubSignatureValidator
+    public class StubMiddleware
     {
         public bool InvokeWasCalled { get; set; }
-        public bool Result { get; set; }
 
-        public Task<bool> Invoke(IDictionary<string, object> env, OwinValidationOptions options, string token)
+        public Task Invoke(IDictionary<string, object> env)
         {
             InvokeWasCalled = true;
-            return Task.FromResult(Result);
+            return Task.FromResult(0);
         }
     }
 }

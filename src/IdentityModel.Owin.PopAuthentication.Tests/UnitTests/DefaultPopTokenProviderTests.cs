@@ -14,7 +14,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Jose;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
     public class DefaultPopTokenProviderTests
     {

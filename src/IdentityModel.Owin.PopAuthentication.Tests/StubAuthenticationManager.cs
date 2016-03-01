@@ -15,7 +15,16 @@ namespace IdentityModel.Owin.PopAuthentication.Tests
 {
     public class StubAuthenticationManager
     {
+        public StubAuthenticationManager()
+        {
+        }
+
         public StubAuthenticationManager(IDictionary<string, object> env)
+        {
+            Attach(env);
+        }
+
+        public void Attach(IDictionary<string, object> env)
         {
             Func<string[], Action<IIdentity, IDictionary<string, string>, IDictionary<string, object>, object>, object, Task> f = this.Invoke;
             env.Add("security.Authenticate", f);

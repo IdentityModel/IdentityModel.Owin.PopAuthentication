@@ -11,7 +11,7 @@ using Xunit;
 using FluentAssertions;
 using Microsoft.Owin;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
     public class HttpSignatureValidationMiddlewareTests
     {
