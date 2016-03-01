@@ -11,6 +11,8 @@ using Xunit;
 using FluentAssertions;
 using Microsoft.Owin;
 using System.IO;
+using Newtonsoft.Json;
+using Jose;
 
 namespace IdentityModel.Owin.PopAuthentication.Tests
 {
@@ -140,6 +142,52 @@ namespace IdentityModel.Owin.PopAuthentication.Tests
                 var token = await DefaultPopTokenProvider.GetPopTokenAsync(ctx.Environment);
                 token.Should().Be("token2");
             }
+        }
+
+        [Fact]
+        public void empty_pop_token_passed_to_GetAccessTokenFromPopToken_should_return_no_access_token()
+        {
+            DefaultPopTokenProvider.GetAccessTokenFromPopToken(null).Should().BeNull();
+            DefaultPopTokenProvider.GetAccessTokenFromPopToken("").Should().BeNull();
+            DefaultPopTokenProvider.GetAccessTokenFromPopToken("    ").Should().BeNull();
+        }
+
+        [Fact]
+        public void pop_token_passed_to_GetAccessTokenFromPopToken_should_return_access_token()
+        {
+            var pop = new
+            {
+                at = "token"
+            };
+            var token = JWT.Encode(pop, null, JwsAlgorithm.none);
+
+            var access_token = DefaultPopTokenProvider.GetAccessTokenFromPopToken(token);
+            access_token.Should().Be("token");
+        }
+
+        [Fact]
+        public void invalid_at_in_pop_token_passed_to_GetAccessTokenFromPopToken_should_return_no_access_token()
+        {
+            var pop = new
+            {
+                at = 5
+            };
+            var token = JWT.Encode(pop, null, JwsAlgorithm.none);
+
+            var access_token = DefaultPopTokenProvider.GetAccessTokenFromPopToken(token);
+            access_token.Should().BeNull();
+        }
+
+        [Fact]
+        public void pop_token_missing_at_passed_to_GetAccessTokenFromPopToken_should_return_no_access_token()
+        {
+            var pop = new
+            {
+            };
+            var token = JWT.Encode(pop, null, JwsAlgorithm.none);
+
+            var access_token = DefaultPopTokenProvider.GetAccessTokenFromPopToken(token);
+            access_token.Should().BeNull();
         }
     }
 }

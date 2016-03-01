@@ -56,17 +56,25 @@ namespace IdentityModel.Owin.PopAuthentication
             return null;
         }
 
-        //public string GetAccessTokenFromPopToken(string token)
-        //{
-        //    var json = Jose.JWT.Payload(token);
+        public static string GetAccessTokenFromPopToken(string token)
+        {
+            if (!String.IsNullOrWhiteSpace(token))
+            {
+                var json = Jose.JWT.Payload(token);
 
-        //    var values = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-        //    if (values.ContainsKey(HttpSigningConstants.SignedObjectParameterNames.AccessToken))
-        //    {
-        //        return values[HttpSigningConstants.SignedObjectParameterNames.AccessToken] as string;
-        //    }
+                var values = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+                if (values.ContainsKey(HttpSigningConstants.SignedObjectParameterNames.AccessToken))
+                {
+                    return values[HttpSigningConstants.SignedObjectParameterNames.AccessToken] as string;
+                }
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
+
+        public static async Task<string> GetAccessTokenFromPopTokenAsync(IDictionary<string, object> env)
+        {
+            return GetAccessTokenFromPopToken(await GetPopTokenAsync(env));
+        }
     }
 }

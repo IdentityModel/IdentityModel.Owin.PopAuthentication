@@ -29,7 +29,7 @@ namespace IdentityModel.Owin.PopAuthentication
             var token = await _options.TokenProvider(env);
             if (token != null)
             {
-                var valid = await _options.SignatureValidator(env, token);
+                var valid = await _options.SignatureValidator(env, _options.ValidationOptions, token);
                 if (valid == false)
                 {
                     var ctx = new OwinContext(env);
