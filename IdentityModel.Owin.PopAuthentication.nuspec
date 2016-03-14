@@ -21,6 +21,7 @@
 
     <dependencies>
       <dependency id="IdentityModel" version="1.8.0"/>
+      <dependency id="Microsoft.Owin" version="3.0.1"/>
       <dependency id="jose-jwt" version="1.9.1" />
     </dependencies>
   </metadata>
