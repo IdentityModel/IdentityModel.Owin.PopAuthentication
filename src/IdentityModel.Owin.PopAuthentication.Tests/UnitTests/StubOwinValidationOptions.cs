@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
-    public class StubOwinValidationOptions : OwinValidationOptions
+    public class StubOwinValidationOptions : OwinRequestValidationOptions
     {
         public EncodedParameters Result { get; set; }
 

@@ -55,10 +55,10 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         {
             var ctx = new OwinContext();
 
-            await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(null, new OwinValidationOptions(), "token"));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(null, new OwinRequestValidationOptions(), "token"));
             await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(ctx.Environment, null, "token"));
-            await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(ctx.Environment, new OwinValidationOptions(), ""));
-            await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(ctx.Environment, new OwinValidationOptions(), ""));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(ctx.Environment, new OwinRequestValidationOptions(), ""));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await DefaultPopSignatureValidator.ValidateTokenAsync(ctx.Environment, new OwinRequestValidationOptions(), ""));
         }
 
         [Fact]

@@ -105,7 +105,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
         [Fact]
         public async Task path_not_signed_but_validation_requires_path_should_fail_request()
         {
-            _signatureValidationOptions.ValidationOptions.ValidatePath = true;
+            _signatureValidationOptions.RequestValidationOptions.ValidatePath = true;
             _client.SetToken("PoP", "token");
             _stubAuthenticationManager.Identity = _cnfIdentity;
 
@@ -117,7 +117,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
         [Fact]
         public async Task path_signed_but_validation_does_not_validate_path_should_fail_request()
         {
-            _signatureValidationOptions.ValidationOptions.ValidatePath = true;
+            _signatureValidationOptions.RequestValidationOptions.ValidatePath = true;
             _client.SetToken("PoP", "token");
             _stubAuthenticationManager.Identity = _cnfIdentity;
 
@@ -130,7 +130,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
         public async Task path_signed_and_validation_validates_path_should_succeed()
         {
             _requestSigningOptions.SignPath = true;
-            _signatureValidationOptions.ValidationOptions.ValidatePath = true;
+            _signatureValidationOptions.RequestValidationOptions.ValidatePath = true;
             _client.SetToken("PoP", "token");
             _stubAuthenticationManager.Identity = _cnfIdentity;
 
@@ -142,7 +142,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
         [Fact]
         public async Task query_not_signed_but_validation_requires_query_should_fail_request()
         {
-            _signatureValidationOptions.ValidationOptions.QueryParametersToValidate = new string[] {
+            _signatureValidationOptions.RequestValidationOptions.QueryParametersToValidate = new string[] {
                 "y", "x"
             };
             _client.SetToken("PoP", "token");
@@ -169,7 +169,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
         public async Task query_signed_and_validation_includes_query_should_succeed()
         {
             _requestSigningOptions.SignAllQueryParameters = true;
-            _signatureValidationOptions.ValidationOptions.QueryParametersToValidate = new string[] {
+            _signatureValidationOptions.RequestValidationOptions.QueryParametersToValidate = new string[] {
                 "x", "y"
             };
             _client.SetToken("PoP", "token");

@@ -13,18 +13,18 @@ namespace IdentityModel.Owin.PopAuthentication
         {
             TokenProvider = DefaultPopTokenProvider.GetPopTokenAsync;
             SignatureValidator = DefaultPopSignatureValidator.ValidateTokenAsync;
-            ValidationOptions = new OwinValidationOptions();
+            RequestValidationOptions = new OwinRequestValidationOptions();
         }
 
         public Func<IDictionary<string, object>, Task<string>> TokenProvider { get; set; }
-        public Func<IDictionary<string, object>, OwinValidationOptions, string, Task<bool>> SignatureValidator { get; set; }
-        public OwinValidationOptions ValidationOptions { get; set; }
+        public Func<IDictionary<string, object>, OwinRequestValidationOptions, string, Task<bool>> SignatureValidator { get; set; }
+        public OwinRequestValidationOptions RequestValidationOptions { get; set; }
 
         internal void Validate()
         {
             if (TokenProvider == null) throw new ArgumentNullException("HttpSignatureValidationOptions.TokenProvider");
             if (SignatureValidator == null) throw new ArgumentNullException("HttpSignatureValidationOptions.SignatureValidator");
-            if (ValidationOptions == null) throw new ArgumentNullException("HttpSignatureValidationOptions.ValidationOptions");
+            if (RequestValidationOptions == null) throw new ArgumentNullException("HttpSignatureValidationOptions.RequestValidationOptions");
         }
     }
 }

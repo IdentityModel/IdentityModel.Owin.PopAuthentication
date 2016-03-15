@@ -17,7 +17,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
 {
     public class OwinValidationOptionsTests
     {
-        OwinValidationOptions _subject = new OwinValidationOptions();
+        OwinRequestValidationOptions _subject = new OwinRequestValidationOptions();
         OwinContext _context = new OwinContext();
 
         [Fact]

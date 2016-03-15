@@ -15,7 +15,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
         public bool InvokeWasCalled { get; set; }
         public bool Result { get; set; }
 
-        public Task<bool> Invoke(IDictionary<string, object> env, OwinValidationOptions options, string token)
+        public Task<bool> Invoke(IDictionary<string, object> env, OwinRequestValidationOptions options, string token)
         {
             InvokeWasCalled = true;
             return Task.FromResult(Result);

@@ -12,7 +12,7 @@ namespace IdentityModel.Owin.PopAuthentication
 {
     public class DefaultPopSignatureValidator
     {
-        public static async Task<bool> ValidateTokenAsync(IDictionary<string, object> env, OwinValidationOptions options, string token)
+        public static async Task<bool> ValidateTokenAsync(IDictionary<string, object> env, OwinRequestValidationOptions options, string token)
         {
             if (env == null) throw new ArgumentNullException("env");
             if (options == null) throw new ArgumentNullException("options");
