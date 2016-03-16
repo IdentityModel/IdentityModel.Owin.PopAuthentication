@@ -70,6 +70,7 @@
     <Compile Include="DefaultPopTokenProvider.cs" />
     <Compile Include="HttpSignatureValidationMiddleware.cs" />
     <Compile Include="DefaultPopSignatureValidator.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="OwinRequestValidationOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

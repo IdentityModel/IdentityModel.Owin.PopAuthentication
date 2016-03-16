@@ -55,12 +55,6 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             JwtSecurityTokenHandler.InboundClaimTypeMap.Clear();
             app.UseIdentityServerBearerTokenAuthentication(AuthenticationOptions);
-            //app.Use(async (ctx, next) =>
-            //{
-            //    var pop = ctx.Request.Headers["Authorization"];
-
-            //    await next();
-            //});
             app.UseHttpSignatureValidation(SignatureValidationOptions);
             
             app.Run(ctx =>

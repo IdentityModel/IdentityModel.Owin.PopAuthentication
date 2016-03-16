@@ -4,6 +4,7 @@
 
 using IdentityModel.HttpSigning;
 using Microsoft.Owin;
+using Microsoft.Owin.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace IdentityModel.Owin.PopAuthentication
             if (options == null) throw new ArgumentNullException("options");
             if (String.IsNullOrWhiteSpace(token)) throw new ArgumentNullException("token");
 
+            var logger = Logging.GetLogger();
+
             var ctx = new OwinContext(env);
             var auth = await ctx.Authentication.AuthenticateAsync(HttpSigningConstants.AccessTokenParameterNames.AuthorizationHeaderScheme);
 
@@ -25,12 +28,14 @@ namespace IdentityModel.Owin.PopAuthentication
                 auth.Identity == null || 
                 auth.Identity.IsAuthenticated == false)
             {
+                logger.WriteError("Authentication failed for " + HttpSigningConstants.AccessTokenParameterNames.AuthorizationHeaderScheme + " scheme");
                 return false;
             }
 
             var cnf = auth.Identity.FindFirst(HttpSigningConstants.Confirmation.ConfirmationProperty);
             if (cnf == null)
             {
+                logger.WriteError(HttpSigningConstants.Confirmation.ConfirmationProperty + " claim not present in authenticated user's claims");
                 return false;
             }
 
@@ -41,11 +46,13 @@ namespace IdentityModel.Owin.PopAuthentication
 
             if (popValues == null)
             {
+                logger.WriteError("Failed to verify signature on PoP token");
                 return false;
             }
 
             if (popValues.TimeStamp == null || popValues.TimeStamp.Value <= 0)
             {
+                logger.WriteError("No timestamp present in PoP object");
                 return false;
             }
 
@@ -56,11 +63,23 @@ namespace IdentityModel.Owin.PopAuthentication
             var high = now + allowance;
             if (time < low || high < time)
             {
+                logger.WriteError("Timestamp in PoP object is out of acceptable range");
                 return false;
             }
 
             var owinRequestEncoding = await options.ReadEncodedParametersAsync(env, popValues);
-            return owinRequestEncoding.IsSame(popValues);
+            var result = owinRequestEncoding.IsSame(popValues);
+
+            if (result == false)
+            {
+                logger.WriteError("Encoded values in PoP object do not match encoded values of current request");
+            }
+            else
+            {
+                logger.WriteInformation("PoP signature validation success");
+            }
+
+            return result;
         }
     }
 }

@@ -3,6 +3,8 @@
 
 
 using IdentityModel.Owin.PopAuthentication;
+using Microsoft.Owin;
+using Microsoft.Owin.Logging;
 
 namespace Owin
 {
@@ -10,7 +12,7 @@ namespace Owin
     {
         public static void UseHttpSignatureValidation(this IAppBuilder app, HttpSignatureValidationOptions options)
         {
-            app.Use<HttpSignatureValidationMiddleware>(options ?? new HttpSignatureValidationOptions());
+            app.Use(typeof(HttpSignatureValidationMiddleware), app, options ?? new HttpSignatureValidationOptions());
         }
 
         public static void UseHttpSignatureValidation(this IAppBuilder app)

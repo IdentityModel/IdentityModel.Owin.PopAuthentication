@@ -4,6 +4,7 @@
 
 using IdentityModel.HttpSigning;
 using Microsoft.Owin;
+using Microsoft.Owin.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,39 +30,47 @@ namespace IdentityModel.Owin.PopAuthentication
             if (env == null) throw new ArgumentNullException("env");
             if (popValues == null) throw new ArgumentNullException("popValues");
 
+            var logger = Logging.GetLogger();
+
             var ctx = new OwinContext(env);
 
             var parameters = new EncodingParameters(popValues.AccessToken);
 
             if (ValidateMethod)
             {
+                logger.WriteVerbose("Validating method");
                 parameters.Method = new HttpMethod(ctx.Request.Method);
             }
 
             if (ValidateHost)
             {
+                logger.WriteVerbose("Validating host");
                 parameters.Host = ctx.Request.Host.Value;
             }
 
             if (ValidatePath)
             {
+                logger.WriteVerbose("Validating path");
                 parameters.Path = ctx.Request.Uri.AbsolutePath;
             }
 
             var queryParamsToValidate = GetQueryParamsToValidate(ctx.Request.Query, popValues.QueryParameters?.Keys);
             foreach(var item in queryParamsToValidate)
             {
+                logger.WriteVerbose("Validating query string parameter: " + item.Key);
                 parameters.QueryParameters.Add(item);
             }
 
             var headersToValidate = GetRequestHeadersToValidate(ctx.Request.Headers, popValues.RequestHeaders?.Keys);
             foreach(var item in headersToValidate)
             {
+                logger.WriteVerbose("Validating request header: " + item.Key);
                 parameters.RequestHeaders.Add(item);
             }
 
             if (ValidateBody)
             {
+                logger.WriteVerbose("Validating body");
                 parameters.Body = await ReadBodyAsync(ctx.Request);
             }
 

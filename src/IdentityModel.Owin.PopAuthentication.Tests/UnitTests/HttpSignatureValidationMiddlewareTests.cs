@@ -11,6 +11,8 @@ using Xunit;
 using FluentAssertions;
 using Microsoft.Owin;
 using IdentityModel.Owin.PopAuthentication;
+using Owin;
+using Microsoft.Owin.Builder;
 
 namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 {
@@ -23,6 +25,7 @@ namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
         HttpSignatureValidationOptions _options;
         StubTokenProvider _stubTokenProvider = new StubTokenProvider();
         StubSignatureValidator _stubSignatureValidator = new StubSignatureValidator();
+        IAppBuilder _app = new AppBuilder();
 
         public HttpSignatureValidationMiddlewareTests()
         {
@@ -31,19 +34,19 @@ namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
                 TokenProvider = _stubTokenProvider.Invoke,
                 SignatureValidator = _stubSignatureValidator.Invoke
             };
-            _subject = new HttpSignatureValidationMiddleware(_stubNext.Invoke, _options);
+            _subject = new HttpSignatureValidationMiddleware(_stubNext.Invoke, _app, _options);
         }
 
         [Fact]
         public void ctor_should_throw_for_invalid_arguments()
         {
-            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(null, new HttpSignatureValidationOptions()));
+            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(null, _app, new HttpSignatureValidationOptions()));
 
-            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(null, new HttpSignatureValidationOptions() { SignatureValidator = null }));
-            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(null, new HttpSignatureValidationOptions() { TokenProvider = null }));
+            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(null, _app, new HttpSignatureValidationOptions() { SignatureValidator = null }));
+            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(null, _app, new HttpSignatureValidationOptions() { TokenProvider = null }));
 
             Func<IDictionary<string, object>, Task> a = (env) => { return Task.FromResult(0); };
-            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(a, null));
+            Assert.Throws<ArgumentNullException>(() => new HttpSignatureValidationMiddleware(a, _app, null));
         }
 
         [Fact]
