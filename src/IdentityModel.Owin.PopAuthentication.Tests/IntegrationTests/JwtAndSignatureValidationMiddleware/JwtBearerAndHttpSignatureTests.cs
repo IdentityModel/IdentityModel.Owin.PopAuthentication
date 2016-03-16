@@ -15,8 +15,10 @@ using Xunit;
 using FluentAssertions;
 using System.Net;
 using System.IdentityModel.Tokens;
+using IdentityModel.Owin.PopAuthentication;
+using IdentityModel;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class JwtBearerAndHttpSignatureTests
     {

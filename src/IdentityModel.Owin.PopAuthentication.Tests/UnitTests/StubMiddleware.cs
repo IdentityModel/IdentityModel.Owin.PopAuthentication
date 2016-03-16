@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
+namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 {
     public class StubMiddleware
     {

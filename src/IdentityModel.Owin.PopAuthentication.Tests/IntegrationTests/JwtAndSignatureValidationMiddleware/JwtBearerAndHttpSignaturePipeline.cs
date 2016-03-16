@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityModel.Owin.PopAuthentication;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Testing;
@@ -13,14 +14,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class JwtBearerAndHttpSignaturePipeline : OwinPipeline
     {
         public JwtBearerAndHttpSignaturePipeline(HttpSignatureValidationOptions options = null)
         {
             Options = options;
-            OnStartup += JwtBearerAndHttpSignaturePipeline_OnStartup;
+            OnConfiguration += JwtBearerAndHttpSignaturePipeline_OnStartup;
         }
 
         public HttpSignatureValidationOptions Options { get; set; }

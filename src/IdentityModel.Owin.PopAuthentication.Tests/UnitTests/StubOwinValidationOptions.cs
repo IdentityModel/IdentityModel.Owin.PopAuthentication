@@ -3,13 +3,14 @@
 
 
 using IdentityModel.HttpSigning;
+using IdentityModel.Owin.PopAuthentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
+namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 {
     public class StubOwinValidationOptions : OwinRequestValidationOptions
     {

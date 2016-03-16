@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Security.Principal;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModelOwinPopAuthentication.Tests
 {
     public class StubAuthenticationManager
     {

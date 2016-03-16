@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class OwinPipeline : IDisposable
     {
@@ -23,17 +23,17 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
             Server.Dispose();
         }
 
-        public event Action<IAppBuilder> OnStartup = x => { };
+        public event Action<IAppBuilder> OnConfiguration = x => { };
         public event Func<IDictionary<string, object>, Task> OnPreProcessRequest = x => Task.FromResult(0);
         public event Func<IDictionary<string, object>, Task> OnPostProcessRequest = x => Task.FromResult(0);
 
-        public void Initialize()
+        public virtual void Initialize()
         {
-            Server = TestServer.Create(Startup);
+            Server = TestServer.Create(Configuration);
             Handler = Server.Handler;
         }
 
-        public void Startup(IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
             app.Use(async (ctx, next) =>
             {
@@ -41,7 +41,7 @@ namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
                 await next();
             });
 
-            OnStartup(app);
+            OnConfiguration(app);
 
             app.Use(async (ctx, next) =>
             {

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityModel.Owin.PopAuthentication;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Testing;
@@ -15,13 +16,13 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class JwtBearerTokenAuthenticationPipeline : OwinPipeline
     {
         public JwtBearerTokenAuthenticationPipeline()
         {
-            OnStartup += JwtBearerTokenAuthenticationPipeline_OnStartup;
+            OnConfiguration += JwtBearerTokenAuthenticationPipeline_OnStartup;
         }
 
         private void JwtBearerTokenAuthenticationPipeline_OnStartup(IAppBuilder app)

@@ -13,8 +13,10 @@ using Microsoft.Owin;
 using System.Security.Claims;
 using IdentityModel.HttpSigning;
 using Newtonsoft.Json;
+using IdentityModel;
+using IdentityModel.Owin.PopAuthentication;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
+namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 {
     public class DefaultPopSignatureValidatorTests
     {

@@ -12,8 +12,9 @@ using FluentAssertions;
 using Microsoft.Owin;
 using System.IO;
 using IdentityModel.HttpSigning;
+using IdentityModel.Owin.PopAuthentication;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.UnitTests
+namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 {
     public class OwinValidationOptionsTests
     {

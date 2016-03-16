@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityModel.Owin.PopAuthentication;
 using Microsoft.Owin.Testing;
 using Owin;
 using System;
@@ -11,14 +12,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class HttpSignatureValidationPipeline : OwinPipeline
     {
         public HttpSignatureValidationPipeline(HttpSignatureValidationOptions options = null)
         {
             Options = options;
-            OnStartup += HttpSignatureValidationPipeline_OnStartup;
+            OnConfiguration += HttpSignatureValidationPipeline_OnStartup;
         }
 
         public HttpSignatureValidationOptions Options { get; set; }

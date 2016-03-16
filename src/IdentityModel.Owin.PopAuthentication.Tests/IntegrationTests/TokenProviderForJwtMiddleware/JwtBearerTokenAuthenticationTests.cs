@@ -16,7 +16,7 @@ using System.Security.Claims;
 using System.Net;
 using System.IdentityModel.Tokens;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class JwtBearerTokenAuthenticationTests
     {

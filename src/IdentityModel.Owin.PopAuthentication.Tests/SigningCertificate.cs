@@ -10,7 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests
+namespace IdentityModelOwinPopAuthentication.Tests
 {
     class SigningCertificate
     {

@@ -15,8 +15,10 @@ using IdentityModel.HttpSigning;
 using System.Security.Claims;
 using Newtonsoft.Json;
 using System.Net;
+using IdentityModel.Owin.PopAuthentication;
+using IdentityModel;
 
-namespace IdentityModel.Owin.PopAuthentication.Tests.IntegrationTests
+namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
     public class HttpSignatureValidationMiddlewareTests
     {
