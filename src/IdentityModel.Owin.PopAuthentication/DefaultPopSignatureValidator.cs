@@ -40,10 +40,16 @@ namespace IdentityModel.Owin.PopAuthentication
             }
 
             var jwk = CnfParser.Parse(cnf.Value);
+            if (jwk == null)
+            {
+                logger.WriteError("Failed to parse cnf claim");
+                return false;
+            }
+
             var key = jwk.ToPublicKey();
             var signature = key.ToSignature();
-            var popValues = signature.Verify(token);
 
+            var popValues = signature.Verify(token);
             if (popValues == null)
             {
                 logger.WriteError("Failed to verify signature on PoP token");
