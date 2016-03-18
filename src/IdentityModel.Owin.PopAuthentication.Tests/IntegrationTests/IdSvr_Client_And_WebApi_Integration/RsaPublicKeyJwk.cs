@@ -49,6 +49,22 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
             this.kid = kid;
         }
 
+        public RsaPublicKeyJwk(string kid, RSACryptoServiceProvider provider)
+            : this(kid)
+        {
+            kty = "RSA";
+
+            var key = provider.ExportParameters(false);
+            n = Base64Url.Encode(key.Modulus);
+            e = Base64Url.Encode(key.Exponent);
+        }
+
+        public string ToJwkString()
+        {
+            var json = JsonConvert.SerializeObject(this);
+            return Base64Url.Encode(Encoding.ASCII.GetBytes(json));
+        }
+
         public static RSACryptoServiceProvider CreateProvider(int keySize = 2048)
         {
             var csp = new CspParameters
@@ -58,23 +74,6 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
             };
 
             return new RSACryptoServiceProvider(keySize, csp);
-        }
-
-        public static RsaPublicKeyJwk CreateJwk(RSAParameters key)
-        {
-            var jwk = new RsaPublicKeyJwk("kid")
-            {
-                kty = "RSA",
-                n = Base64Url.Encode(key.Modulus),
-                e = Base64Url.Encode(key.Exponent)
-            };
-            return jwk;
-        }
-
-        public static string CreateJwkString(RsaPublicKeyJwk jwk)
-        {
-            var json = JsonConvert.SerializeObject(jwk);
-            return Base64Url.Encode(Encoding.ASCII.GetBytes(json));
         }
     }
 }

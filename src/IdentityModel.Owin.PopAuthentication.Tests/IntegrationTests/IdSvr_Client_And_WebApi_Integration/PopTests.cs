@@ -115,17 +115,15 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var p = RsaPublicKeyJwk.CreateProvider();
-            var key = p.ExportParameters(false);
-            var jwk = RsaPublicKeyJwk.CreateJwk(key);
-            var jwk64 = RsaPublicKeyJwk.CreateJwkString(jwk);
+            var provider = RsaPublicKeyJwk.CreateProvider();
+            var jwk = new RsaPublicKeyJwk("key_id", provider);
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk64, algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
             tokenResponse.IsError.Should().BeFalse();
 
-            var signature = new RS256Signature(p);
+            var signature = new RS256Signature(provider);
             var signingOptions = new RequestSigningOptions();
             var signingHandler = new HttpSigningMessageHandler(signature, signingOptions, _webApiPipeline.Handler);
 
@@ -143,17 +141,15 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var p = RsaPublicKeyJwk.CreateProvider();
-            var key = p.ExportParameters(false);
-            var jwk = RsaPublicKeyJwk.CreateJwk(key);
-            var jwk64 = RsaPublicKeyJwk.CreateJwkString(jwk);
+            var provider = RsaPublicKeyJwk.CreateProvider();
+            var jwk = new RsaPublicKeyJwk("key_id", provider);
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk64, algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
             tokenResponse.IsError.Should().BeFalse();
 
-            var signature = new RS256Signature(p);
+            var signature = new RS256Signature(provider);
             var signingOptions = new RequestSigningOptions();
             var signingHandler = new HttpSigningMessageHandler(signature, signingOptions, _webApiPipeline.Handler);
 
@@ -169,17 +165,15 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var p = RsaPublicKeyJwk.CreateProvider();
-            var key = p.ExportParameters(false);
-            var jwk = RsaPublicKeyJwk.CreateJwk(key);
-            var jwk64 = RsaPublicKeyJwk.CreateJwkString(jwk);
+            var provider = RsaPublicKeyJwk.CreateProvider();
+            var jwk = new RsaPublicKeyJwk("key_id", provider);
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk64, algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
             tokenResponse.IsError.Should().BeFalse();
 
-            var signature = new RS256Signature(p);
+            var signature = new RS256Signature(provider);
             var signingOptions = new RequestSigningOptions()
             {
                 SignHost = true,
@@ -212,17 +206,15 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var p = RsaPublicKeyJwk.CreateProvider();
-            var key = p.ExportParameters(false);
-            var jwk = RsaPublicKeyJwk.CreateJwk(key);
-            var jwk64 = RsaPublicKeyJwk.CreateJwkString(jwk);
+            var provider = RsaPublicKeyJwk.CreateProvider();
+            var jwk = new RsaPublicKeyJwk("key_id", provider);
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk64, algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
             tokenResponse.IsError.Should().BeFalse();
 
-            var signature = new RS256Signature(p);
+            var signature = new RS256Signature(provider);
             var signingOptions = new RequestSigningOptions()
             {
                 SignHost = true,
@@ -247,17 +239,15 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var p = RsaPublicKeyJwk.CreateProvider();
-            var key = p.ExportParameters(false);
-            var jwk = RsaPublicKeyJwk.CreateJwk(key);
-            var jwk64 = RsaPublicKeyJwk.CreateJwkString(jwk);
+            var provider = RsaPublicKeyJwk.CreateProvider();
+            var jwk = new RsaPublicKeyJwk("key_id", provider);
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk64, algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
             tokenResponse.IsError.Should().BeFalse();
 
-            var signature = new RS256Signature(p);
+            var signature = new RS256Signature(provider);
             var signingOptions = new RequestSigningOptions()
             {
                 //SignHost = true,
