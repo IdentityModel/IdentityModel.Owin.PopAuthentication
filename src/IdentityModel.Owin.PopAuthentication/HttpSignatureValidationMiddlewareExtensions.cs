@@ -5,6 +5,7 @@
 using IdentityModel.Owin.PopAuthentication;
 using Microsoft.Owin;
 using Microsoft.Owin.Logging;
+using System;
 
 namespace Owin
 {
@@ -15,9 +16,19 @@ namespace Owin
             app.Use(typeof(HttpSignatureValidationMiddleware), app, options ?? new HttpSignatureValidationOptions());
         }
 
+        public static void UseHttpSignatureValidation(this IAppBuilder app, OwinRequestValidationOptions options)
+        {
+            if (options == null) throw new ArgumentNullException("options");
+
+            app.Use(typeof(HttpSignatureValidationMiddleware), app, new HttpSignatureValidationOptions()
+            {
+                RequestValidationOptions = options
+            });
+        }
+
         public static void UseHttpSignatureValidation(this IAppBuilder app)
         {
-            app.UseHttpSignatureValidation(null);
+            app.UseHttpSignatureValidation((HttpSignatureValidationOptions)null);
         }
     }
 }
