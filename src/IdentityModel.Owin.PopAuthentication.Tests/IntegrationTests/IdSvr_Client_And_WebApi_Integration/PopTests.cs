@@ -115,12 +115,12 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwk.CreateProvider();
-            var jwk = new RsaPublicKeyJwk("key_id", provider);
+            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.Alg);
             tokenResponse.IsError.Should().BeFalse();
 
             var signature = new RS256Signature(provider);
@@ -141,12 +141,12 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwk.CreateProvider();
-            var jwk = new RsaPublicKeyJwk("key_id", provider);
+            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.Alg);
             tokenResponse.IsError.Should().BeFalse();
 
             var signature = new RS256Signature(provider);
@@ -165,12 +165,12 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwk.CreateProvider();
-            var jwk = new RsaPublicKeyJwk("key_id", provider);
+            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.Alg);
             tokenResponse.IsError.Should().BeFalse();
 
             var signature = new RS256Signature(provider);
@@ -206,12 +206,12 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwk.CreateProvider();
-            var jwk = new RsaPublicKeyJwk("key_id", provider);
+            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.Alg);
             tokenResponse.IsError.Should().BeFalse();
 
             var signature = new RS256Signature(provider);
@@ -239,12 +239,12 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwk.CreateProvider();
-            var jwk = new RsaPublicKeyJwk("key_id", provider);
+            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
             var tokenResponse = await tokenClient.RequestAuthorizationCodePopAsync(
-                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.alg);
+                authResponse.Code, ClientRedirectUri, key: jwk.ToJwkString(), algorithm: jwk.Alg);
             tokenResponse.IsError.Should().BeFalse();
 
             var signature = new RS256Signature(provider);

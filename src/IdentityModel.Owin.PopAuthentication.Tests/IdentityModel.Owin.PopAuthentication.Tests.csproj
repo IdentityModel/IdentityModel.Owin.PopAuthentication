@@ -42,7 +42,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="IdentityModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IdentityModel.1.9.2\lib\net45\IdentityModel.dll</HintPath>
+      <HintPath>..\..\packages\IdentityModel.1.9.2-build00091\lib\net45\IdentityModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IdentityModel.HttpSigning, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

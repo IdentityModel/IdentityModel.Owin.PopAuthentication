@@ -9,60 +9,28 @@ using System.Text;
 
 namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
-    /// <summary>
-    /// Models an RSA public key JWK
-    /// </summary>
-    public class RsaPublicKeyJwk
+    public static class RsaPublicKeyJwkHelper
     {
-        /// <summary>
-        /// key type
-        /// </summary>
-        public string kty { get; set; }
-
-        /// <summary>
-        /// modulus
-        /// </summary>
-        public string n { get; set; }
-
-        /// <summary>
-        /// exponent
-        /// </summary>
-        public string e { get; set; }
-
-        /// <summary>
-        /// algorithm
-        /// </summary>
-        public string alg { get; set; }
-
-        /// <summary>
-        /// key identifier
-        /// </summary>
-        public string kid { get; set; }
-
-        /// <summary>
-        /// Initializes the JWK with a key id
-        /// </summary>
-        /// <param name="kid"></param>
-        public RsaPublicKeyJwk(string kid)
+        public static string ToJwkString(this IdentityModel.Jwt.JsonWebKey key)
         {
-            alg = "RS256";
-            this.kid = kid;
-        }
-
-        public RsaPublicKeyJwk(string kid, RSACryptoServiceProvider provider)
-            : this(kid)
-        {
-            kty = "RSA";
-
-            var key = provider.ExportParameters(false);
-            n = Base64Url.Encode(key.Modulus);
-            e = Base64Url.Encode(key.Exponent);
-        }
-
-        public string ToJwkString()
-        {
-            var json = JsonConvert.SerializeObject(this);
+            var json = JsonConvert.SerializeObject(key);
             return Base64Url.Encode(Encoding.ASCII.GetBytes(json));
+        }
+
+        public static IdentityModel.Jwt.JsonWebKey ToJsonWebKey(this RSACryptoServiceProvider provider, string alg = "RS256", string kid = null)
+        {
+            var key = provider.ExportParameters(false);
+            
+            var n = Base64Url.Encode(key.Modulus);
+            var e = Base64Url.Encode(key.Exponent);
+            return new IdentityModel.Jwt.JsonWebKey()
+            {
+                N = n,
+                E = e,
+                Kid = kid ?? "id",
+                Kty = "RSA",
+                Alg = alg,
+            };
         }
 
         public static RSACryptoServiceProvider CreateProvider(int keySize = 2048)
