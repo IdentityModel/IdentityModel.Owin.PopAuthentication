@@ -6,21 +6,27 @@
     <owners>Dominick Baier, Brock Allen</owners>
     <copyright>Dominick Baier, Brock Allen 2016</copyright>
 
-    <projectUrl>http://github.com/IdentityModel/IdentityModel.HttpSigning</projectUrl>
+    <projectUrl>http://github.com/IdentityModel/IdentityModel.Owin.PopAuthentication</projectUrl>
     <iconUrl>https://identityserver.github.io/Documentation/assets/images/icons/IDmodel_icon128.png</iconUrl>
 
     <id>IdentityModel.Owin.PopAuthentication</id>
     <title>IdentityModel.Owin.PopAuthentication</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/IdentityModel/IdentityModel.Owin.PopAuthentication/blob/master/LICENSE</licenseUrl>
 
-    <description>A Method for Signing HTTP Requests for OAuth</description>
-    <summary>A Method for Signing HTTP Requests for OAuth (https://tools.ietf.org/html/draft-ietf-oauth-signed-http-request-02)</summary>
+    <description>A middleware for validating signed HTTP requests for OAuth</description>
+    <summary>A middleware for validating signed HTTP requests for OAuth (https://tools.ietf.org/html/draft-ietf-oauth-signed-http-request-02)</summary>
 
     <language>en-US</language>
-    <tags>OAuth2 PoP Signing HTTP JWT Tokens API</tags>
+    <tags>OAuth2 PoP Signing HTTP JWT Tokens API Katana OWIN</tags>
 
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework="net45" />
+    </frameworkAssemblies>
+    
     <dependencies>
-      <dependency id="IdentityModel" version="1.8.0"/>
+      <dependency id="IdentityModel" version="1.10.0"/>
+      <dependency id="IdentityModel.HttpSigning" version="1.0.0"/>
       <dependency id="Microsoft.Owin" version="3.0.1"/>
       <dependency id="jose-jwt" version="1.9.1" />
     </dependencies>

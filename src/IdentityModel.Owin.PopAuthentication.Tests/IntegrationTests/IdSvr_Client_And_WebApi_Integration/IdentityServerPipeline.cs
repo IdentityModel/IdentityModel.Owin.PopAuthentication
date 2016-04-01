@@ -43,10 +43,10 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
         static IdentityServerPipeline()
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .WriteTo.Trace()
-                .CreateLogger();
+            //Log.Logger = new LoggerConfiguration()
+            //    .MinimumLevel.Verbose()
+            //    .WriteTo.Trace()
+            //    .CreateLogger();
         }
 
         public IdentityServerPipeline()
