@@ -17,6 +17,7 @@ using System.Net;
 using System.IdentityModel.Tokens;
 using IdentityModel.Owin.PopAuthentication;
 using IdentityModel;
+using IdentityModel.Jwt;
 
 namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 {
@@ -42,11 +43,11 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
         string GetAccessToken()
         {
-            var jwk = new Jwk
+            var jwk = new JsonWebKey
             {
-                kty = "oct",
-                alg = "HS256",
-                k = Base64Url.Encode(_symmetricKey)
+                Kty = "oct",
+                Alg = "HS256",
+                K = Base64Url.Encode(_symmetricKey)
             };
             var cnf = new Cnf(jwk);
             var cnfJson = cnf.ToJson();

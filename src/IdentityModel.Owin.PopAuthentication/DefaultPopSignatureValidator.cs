@@ -3,6 +3,7 @@
 
 
 using IdentityModel.HttpSigning;
+using IdentityModel.Jwt;
 using Microsoft.Owin;
 using Microsoft.Owin.Logging;
 using System;

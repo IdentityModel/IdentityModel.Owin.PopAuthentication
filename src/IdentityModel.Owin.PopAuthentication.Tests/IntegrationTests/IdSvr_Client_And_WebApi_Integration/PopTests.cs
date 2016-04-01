@@ -5,6 +5,7 @@
 using FluentAssertions;
 using IdentityModel.Client;
 using IdentityModel.HttpSigning;
+using IdentityModel.Jwt;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -115,7 +116,7 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var provider = JwkNetExtensions.CreateProvider();
             var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
@@ -141,7 +142,7 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
 
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var provider = JwkNetExtensions.CreateProvider();
             var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
@@ -165,7 +166,7 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var provider = JwkNetExtensions.CreateProvider();
             var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
@@ -206,7 +207,7 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var provider = JwkNetExtensions.CreateProvider();
             var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);
@@ -239,7 +240,7 @@ namespace IdentityModelOwinPopAuthentication.Tests.IntegrationTests
         {
             var authResponse = await AssertLoginAndGetAuthorizeResponseAsync();
 
-            var provider = RsaPublicKeyJwkHelper.CreateProvider();
+            var provider = JwkNetExtensions.CreateProvider();
             var jwk = provider.ToJsonWebKey();
 
             var tokenClient = new TokenClient(IdentityServerPipeline.TokenEndpoint, ClientId, ClientSecret, _idSvrPipeline.Handler);

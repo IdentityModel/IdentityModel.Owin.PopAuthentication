@@ -15,6 +15,7 @@ using IdentityModel.HttpSigning;
 using Newtonsoft.Json;
 using IdentityModel;
 using IdentityModel.Owin.PopAuthentication;
+using IdentityModel.Jwt;
 
 namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 {
@@ -26,11 +27,11 @@ namespace IdentityModelOwinPopAuthentication.Tests.UnitTests
 
         static DefaultPopSignatureValidatorTests()
         {
-            var jwk = new Jwk
+            var jwk = new JsonWebKey
             {
-                kty = "oct",
-                alg = "HS256",
-                k = Base64Url.Encode(_symmetricKey)
+                Kty = "oct",
+                Alg = "HS256",
+                K = Base64Url.Encode(_symmetricKey)
             };
             var cnf = new Cnf(jwk);
             var cnfJson = cnf.ToJson();
